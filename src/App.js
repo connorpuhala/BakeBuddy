@@ -541,19 +541,19 @@ class TimerWindow extends Component {
         <div className='row-a'>
           <div className='column'>
             <h5 class="ui centered header">
-              <StepTimer 
-                nextStepTime={this.state.nextStepTime}
-                startTime={Date.now()}
-              />
-            </h5>
-          </div>
-          <div className='column'>
-            <h5 class="ui centered header">
               <MyAlarm
                 nextStepTime={this.state.nextStepTime}
                 startTime={Date.now()}
                 checkNine={this.state.step9CheckOn}
                 checkTen={this.state.step10CheckOn}
+              />
+            </h5>
+          </div>
+          <div className='column'>
+            <h5 class="ui centered header">
+              <StepTimer 
+                nextStepTime={this.state.nextStepTime}
+                startTime={Date.now()}
               />
             </h5>
           </div>
