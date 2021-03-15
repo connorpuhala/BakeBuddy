@@ -1,19 +1,20 @@
 {
   "files": {
-    "main.css": "/BakeBuddy/static/css/main.e66a8236.chunk.css",
-    "main.js": "/BakeBuddy/static/js/main.4ed12390.chunk.js",
-    "main.js.map": "/BakeBuddy/static/js/main.4ed12390.chunk.js.map",
+    "main.css": "/BakeBuddy/static/css/main.8ab6f1fd.chunk.css",
+    "main.js": "/BakeBuddy/static/js/main.f4a088fd.chunk.js",
+    "main.js.map": "/BakeBuddy/static/js/main.f4a088fd.chunk.js.map",
     "runtime-main.js": "/BakeBuddy/static/js/runtime-main.1e107ad5.js",
     "runtime-main.js.map": "/BakeBuddy/static/js/runtime-main.1e107ad5.js.map",
     "static/css/2.ed6e9f62.chunk.css": "/BakeBuddy/static/css/2.ed6e9f62.chunk.css",
-    "static/js/2.dcaa1fe0.chunk.js": "/BakeBuddy/static/js/2.dcaa1fe0.chunk.js",
-    "static/js/2.dcaa1fe0.chunk.js.map": "/BakeBuddy/static/js/2.dcaa1fe0.chunk.js.map",
+    "static/js/2.4f4aa212.chunk.js": "/BakeBuddy/static/js/2.4f4aa212.chunk.js",
+    "static/js/2.4f4aa212.chunk.js.map": "/BakeBuddy/static/js/2.4f4aa212.chunk.js.map",
     "static/js/3.7bbd5e6a.chunk.js": "/BakeBuddy/static/js/3.7bbd5e6a.chunk.js",
     "static/js/3.7bbd5e6a.chunk.js.map": "/BakeBuddy/static/js/3.7bbd5e6a.chunk.js.map",
     "index.html": "/BakeBuddy/index.html",
     "static/css/2.ed6e9f62.chunk.css.map": "/BakeBuddy/static/css/2.ed6e9f62.chunk.css.map",
-    "static/css/main.e66a8236.chunk.css.map": "/BakeBuddy/static/css/main.e66a8236.chunk.css.map",
-    "static/js/2.dcaa1fe0.chunk.js.LICENSE.txt": "/BakeBuddy/static/js/2.dcaa1fe0.chunk.js.LICENSE.txt",
+    "static/css/main.8ab6f1fd.chunk.css.map": "/BakeBuddy/static/css/main.8ab6f1fd.chunk.css.map",
+    "static/js/2.4f4aa212.chunk.js.LICENSE.txt": "/BakeBuddy/static/js/2.4f4aa212.chunk.js.LICENSE.txt",
+    "static/media/alarmbeep.502ff83e.wav": "/BakeBuddy/static/media/alarmbeep.502ff83e.wav",
     "static/media/baguettecard.b17dec0e.png": "/BakeBuddy/static/media/baguettecard.b17dec0e.png",
     "static/media/semantic.min.css": "/BakeBuddy/static/media/outline-icons.ddae9b1b.woff",
     "static/media/App.css": "/BakeBuddy/static/media/bread.51145671.jpg"
@@ -21,8 +22,8 @@
   "entrypoints": [
     "static/js/runtime-main.1e107ad5.js",
     "static/css/2.ed6e9f62.chunk.css",
-    "static/js/2.dcaa1fe0.chunk.js",
-    "static/css/main.e66a8236.chunk.css",
-    "static/js/main.4ed12390.chunk.js"
+    "static/js/2.4f4aa212.chunk.js",
+    "static/css/main.8ab6f1fd.chunk.css",
+    "static/js/main.f4a088fd.chunk.js"
   ]
 }
