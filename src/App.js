@@ -3,6 +3,138 @@ import React, { Component } from "react";
 import { Button, Card, Header, Transition, Image} from 'semantic-ui-react'
 import './App.css';
 import baguette from './images/baguettecard.png';
+import beep from './sounds/alarmbeep.wav';
+
+
+class MyAlarm extends React.Component {
+  constructor(props){
+    super(props);
+
+    this.timer = 0;
+    this.state = {
+        time: new Date(),
+        isRunning: false,
+        isChecked: false
+    };
+
+    this.handleCheck = this.handleCheck.bind(this);
+  }
+
+  componentWillMount(){
+    // set up timer
+    this.timer = setTimeout(() => {
+        this.setState({
+            time: new Date()
+        });
+        this.componentWillMount();
+    }, Math.floor(Date.now() / 1000) * 1000 + 1000 - Date.now());
+  }
+
+  componentWillUnmount(){
+    // remove timer
+    clearTimeout(this.timer);
+  }
+
+  handleCheck() {
+    this.setState(prevState => ({
+      isChecked: !prevState.isChecked
+    }));
+  }
+
+  render() {
+    console.log (this.props.startTime);
+    console.log (this.props.nextStepTime);
+    console.log (this.state.time.getTime());
+    let timeLeft = (this.props.startTime) + (this.props.nextStepTime);
+
+
+
+    if ((timeLeft - this.state.time) > 0 && this.state.isRunning == false) {
+      this.setState({ isRunning: true })
+    } 
+    
+    if ((timeLeft - this.state.time) <= 0 && this.state.isRunning == true ) {
+      this.setState({ isRunning: false })
+      if (this.state.isChecked == true &&
+        this.props.checkNine == false &&
+        this.props.checkTen == false) {
+        let audio = new Audio(beep);
+        audio.play();
+      }
+    } 
+
+    return (
+      <div class="ui checkbox">
+        <input type="checkbox" name="example" onChange={this.handleCheck}/>
+        <label>Alarm</label>
+      </div>
+    );
+  }
+}
+
+class StepTimer extends React.Component {
+  constructor(props){
+    super(props);
+
+    this.timer = 0;
+    this.state = {
+        time: new Date(),
+        isRunning: false,
+    };
+
+  }
+
+  componentWillMount(){
+    // set up timer
+    this.timer = setTimeout(() => {
+        this.setState({
+            time: new Date()
+        });
+        this.componentWillMount();
+    }, Math.floor(Date.now() / 1000) * 1000 + 1000 - Date.now());
+  }
+
+  componentWillUnmount(){
+    // remove timer
+    clearTimeout(this.timer);
+  }
+
+  msToTime(duration) {
+    var milliseconds = parseInt((duration % 1000) / 100),
+      seconds = Math.floor((duration / 1000) % 60),
+      minutes = Math.floor((duration / (1000 * 60)) % 60),
+      hours = Math.floor((duration / (1000 * 60 * 60)) % 24);
+  
+    hours = (hours < 10) ? "0" + hours : hours;
+    minutes = (minutes < 10) ? "0" + minutes : minutes;
+    seconds = (seconds < 10) ? "0" + seconds : seconds;
+  
+    return "Step Timer: " + hours + ":" + minutes + ":" + seconds;
+  }
+  
+
+  render() {
+    console.log (this.props.startTime);
+    console.log (this.props.nextStepTime);
+    console.log (this.state.time.getTime());
+    let timeLeft = (this.props.startTime) + (this.props.nextStepTime);
+
+    // if ((timeLeft - this.state.time) > 0 && this.state.isRunning == false) {
+    //   this.setState({ isRunning: true })
+    // } 
+    
+    // if ((timeLeft - this.state.time) <= 0 && this.state.isRunning == true) {
+    //   alert ('Time up');
+    //   this.setState({ isRunning: false })
+    // } 
+
+    if ((timeLeft - this.state.time) > 0) {
+      return this.msToTime(timeLeft - this.state.time);
+    } else {
+      return 'Ready';
+    }
+  }
+}
 
 class Task extends React.Component {
   
@@ -86,13 +218,21 @@ class TimerWindow extends Component {
       step9CheckOn: false,
       step10CheckOn: false,
 
+      nextStepTime: '',
+
       cardVisible: false,
+      alarmChecked: false,
 
       transitionIn: 500,
-      transitionOut: 0
+      transitionOut: 0,
     }
 
     this.onPress = this.onPress.bind(this);
+    this.handleCheck = this.handleCheck.bind(this);
+  }
+
+  handleCheck() {
+    // somethin
   }
 
   updateAllTimes(rightNow, stepNumber) {
@@ -365,28 +505,27 @@ class TimerWindow extends Component {
   onPress = (stepNumber) => {
     let rightNowOG = new Date();
     rightNowOG.setTime(Date.now());
-    // if (stepNumber == 0) {
-    //   rightNowOG.setTime(Date.now());
-    // } else if (stepNumber == 1) {
-    //   rightNowOG.setTime(Date.now());
-    // } else if (stepNumber == 2) {
-    //   rightNowOG.setTime(Date.now());
-    // } else if (stepNumber == 3) {
-    //   rightNowOG.setTime(Date.now() - 600000 - 3600000 - 43200000);
-    // } else if (stepNumber == 4) {
-    //   console.log('Step 4');
-    //   rightNowOG.setTime(Date.now() - 600000 - 3600000 - 43200000 - 3600000);
-    // } else if (stepNumber == 5) {
-    //   rightNowOG.setTime(Date.now() - 600000 - 3600000 - 43200000 - 3600000 - 600000);
-    // } else if (stepNumber == 6) {
-    //   rightNowOG.setTime(Date.now() - 600000 - 3600000 - 43200000 - 3600000 - 600000 - 10800000);
-    // } else if (stepNumber == 7) {
-    //   rightNowOG.setTime(Date.now() - 600000 - 3600000 - 43200000 - 3600000 - 600000 - 10800000 - 3600000);
-    // } else if (stepNumber == 8) {
-    //   rightNowOG.setTime(Date.now() - 600000 - 3600000 - 43200000 - 3600000 - 600000 - 10800000 - 3600000 - 1800000);
-    // } else if (stepNumber == 9) {
-    //   rightNowOG.setTime(Date.now() - 600000 - 3600000 - 43200000 - 3600000 - 600000 - 10800000 - 3600000 - 1800000 - 600000);
-    // }
+    if (stepNumber == 0) {
+      this.setState({ nextStepTime: 600000});
+    } else if (stepNumber == 1) {
+      this.setState({ nextStepTime: 3600000});
+    } else if (stepNumber == 2) {
+      this.setState({ nextStepTime: 43200000});
+    } else if (stepNumber == 3) {
+      this.setState({ nextStepTime: 3600000});
+    } else if (stepNumber == 4) {
+      this.setState({ nextStepTime: 600000});
+    } else if (stepNumber == 5) {
+      this.setState({ nextStepTime: 10800000});
+    } else if (stepNumber == 6) {
+      this.setState({ nextStepTime: 360000});
+    } else if (stepNumber == 7) {
+      this.setState({ nextStepTime: 1800000});
+    } else if (stepNumber == 8) {
+      this.setState({ nextStepTime: 600000});
+    } else if (stepNumber >= 9) {
+      this.setState({ nextStepTime: 0});
+    }
     this.setState({ 
       transitionIn: 500,
       transitionOut: 0
@@ -399,6 +538,27 @@ class TimerWindow extends Component {
     return (
       <div class="ui container">
         <h3 class="ui centered header">Current Time: {this.state.currentTime}</h3>
+        <div className='row-a'>
+          <div className='column'>
+            <h5 class="ui centered header">
+              <StepTimer 
+                nextStepTime={this.state.nextStepTime}
+                startTime={Date.now()}
+              />
+            </h5>
+          </div>
+          <div className='column'>
+            <h5 class="ui centered header">
+              <MyAlarm
+                nextStepTime={this.state.nextStepTime}
+                startTime={Date.now()}
+                checkNine={this.state.step9CheckOn}
+                checkTen={this.state.step10CheckOn}
+              />
+            </h5>
+          </div>
+        </div>
+        <br></br>
         <div className='row'>
           <div className='column'>
             <Transition visible={!this.state.cardVisible} animation='scale' duration={this.state.transitionOut}>
@@ -410,12 +570,14 @@ class TimerWindow extends Component {
               </Button>
             </Transition>
             <Transition visible={this.state.cardVisible} animation='scale' duration={this.state.transitionIn}>
-              <Button animated onClick={() => this.onPress(0)}>
-                <Button.Content visible>BAKE</Button.Content>
-                <Button.Content hidden>
-                  BEGIN
-                </Button.Content>
-              </Button>
+              <div>
+                <Button animated onClick={() => this.onPress(0)}>
+                  <Button.Content visible>BAKE</Button.Content>
+                  <Button.Content hidden>
+                    BEGIN
+                  </Button.Content>
+                </Button>
+              </div>
             </Transition>
           </div>
           <Transition visible={this.state.cardVisible} animation='scale' duration={this.state.transitionIn}>
